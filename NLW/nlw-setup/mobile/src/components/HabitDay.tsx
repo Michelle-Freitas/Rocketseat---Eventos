@@ -5,14 +5,12 @@ import { generateProgressPercentage } from "../utils/generate-progress-percentag
 import clsx from "clsx";
 import dayjs from "dayjs";
 
-const WEEK_DAYS = 7 //por linha 7 quadradinhos (dias)
+const WEEK_DAYS = 7
 const SCREEN_HORIZONTAL_PADDING = (32 * 2) / 5
-//de cada lado tem 32 e divide por 5 espaçamento entre cada
 
-export const DAY_MARGIN_BETWEEN = 8 //espaçamento entre quadradinhos
+export const DAY_MARGIN_BETWEEN = 8
 export const DAY_SIZE = (Dimensions.get('screen').width / WEEK_DAYS) - (SCREEN_HORIZONTAL_PADDING + 5)
-//DAY_SIZE tam de cada quadr
-// podemos pegar a dimensão do cel e vamos dividir por 7 -> descontar o padding
+
 
 interface Props extends TouchableOpacityProps {
     amountOfHabits?: number;
@@ -20,14 +18,14 @@ interface Props extends TouchableOpacityProps {
     date: Date;
 }
 
+
 export function HabitDay({amountOfHabits = 0, amountCompleted = 0, date, ...rest }: Props ){
 
     const amountAccomplishedPercentage = amountOfHabits > 0 ? generateProgressPercentage(amountOfHabits, amountCompleted) : 0
     const today = dayjs().startOf('day').toDate()
-    const isCurrentDay = dayjs(date).isSame(today) // se for o dia de hj ficar com contorno o quadradinho
+    const isCurrentDay = dayjs(date).isSame(today)
 
     return(
-
         <TouchableOpacity
         className={clsx("rounded-lx border-2 m-1", {
             ["bg-zinc-900 border-zinc-800"] : amountAccomplishedPercentage == 0,

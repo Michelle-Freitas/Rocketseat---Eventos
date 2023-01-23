@@ -14,45 +14,41 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-//Prisma suporta Mongo, SQL, vários banco de dados -> então para criar uma tabela usamos o model como genérico entre eles
 
 model Habit {
-  //habito terá um id, será String, @id pq é chave primária, e passado por default (uuid) -> qd criado um habito o uuid preenche automaticamente (ids únicos - string)
   id         String   @id @default(uuid())
   title      String
-  created_at DateTime //data de criação
+  created_at DateTime
 
   dayHabits     DayHabit[]
   weekDays HabitWeekDays[]
 
-  @@map("habits") //nome da tabela (prefere minusculas e no plural)
+  @@map("habits")
 }
+
 
 model HabitWeekDays {
   id       String @id @default(uuid())
   habit_id String
   week_day Int
 
-  //Relacionamento 1:N com a tabela Habit, cada habito pode estar disponivel em varios dias da semana
-
   habit   Habit  @relation(fields: [habit_id], references: [id])
 
-
   @@unique([habit_id, week_day])
-  //o mesmo habito só pode estar disponivel 1x no msm dia da semana
   @@map("habit_week_days")
 }
 
+
 model Day {
   id   String   @id @default(uuid())
-  date DateTime //se não completou nenhum habito do dia, é pra ter registro de quando completou algum
-  //quer dizer que cada campo/registro tem o date unico
+  date DateTime
 
-  dayHabits DayHabit[] //camelcase pq não é um campo, apenas para o prisma criar no JS
+  dayHabits DayHabit[]
 
-  @@unique([date]) //podemos criar index
+  @@unique([date])
   @@map("days")
 }
+
 
 model DayHabit {
   id String @id @default(uuid())
@@ -60,12 +56,9 @@ model DayHabit {
   day_id   String //chave estrangeira
   habit_id String //chave estrangeira
 
-  //no prima não adianta colocar como acima para informar chave estrangeira, deve:
   day   Day   @relation(fields: [day_id], references: [id])
   habit Habit @relation(fields: [habit_id], references: [id])
-  //day que referencia o model Day
-  //não pode ter o mesmo habito completado 2x no mesmo dia
 
-  @@unique([day_id, habit_id]) //nesse dia o habito foi completado
+  @@unique([day_id, habit_id]) 
   @@map("day_habits")
 }

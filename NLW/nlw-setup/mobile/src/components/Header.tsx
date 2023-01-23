@@ -24,11 +24,8 @@ export function Header(){
                 <Text className="text-white ml-3 font-semibold text-base">
                     Novo
                 </Text>
-
+                
             </TouchableOpacity>
-
         </View>
-
     )
-
 }

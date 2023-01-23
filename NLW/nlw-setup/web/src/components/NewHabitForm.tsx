@@ -8,23 +8,20 @@ const availableWeekDays = ['Domingo', 'Segunda-feira', 'Terça-feira', 'Quarta-f
 
 export function NewHabitForm(){
 
-    const [title, setTitle] = useState('') //vamos nesse caso criar um useState para cada campo do nosso form
-    const [weekDays, setWeekDays] = useState<number[]>([]) //aqui para dias semana vamos armazenar um array
+    const [title, setTitle] = useState('')
+    const [weekDays, setWeekDays] = useState<number[]>([])
 
-    async function createNewHabit(event: FormEvent){ //receber o evento de subtmit, mas como TS não entende precisamos usar o type
-        //clicando onSubit pode ver q ele recebe uma função e clicando na função vemos q ele recebe FormEvent
-
+    async function createNewHabit(event: FormEvent){
         event.preventDefault() //para não redirecionar usuario para outra página
 
-
         if (!title || weekDays.length == 0){
-            return //apenas não acontece nada
+            return
         }
-        //caso contrario irá chamar nossa api
-        await api.post('habits', {//post = criar informação
+
+        await api.post('habits', {
             title,
             weekDays,
-        }) //objetos que serão enviados no corpo da requisição
+        })
 
         setTitle('')
         setWeekDays([])
@@ -33,25 +30,17 @@ export function NewHabitForm(){
     }
 
     function handleToggleWeekDays(weekDay: number){
-        if (weekDays.includes(weekDay)){ //se já está no array
-
-            //No React não podemos modificar um variavel (imutabilidade), substitui por completo com uma nova
-            /*então não podemos utilizar
-            const weekDayIndex = weekDays.findIndex(day => day == weekDay)
-            e utilizar splice, push    ->  TEMOS QUE CRIAR UM NOVO ARRAY */
+        if (weekDays.includes(weekDay)){
 
             const weekDaysWithRemovedOne = weekDays.filter(day => day !== weekDay)
-            //procurar e deixar apenas dias que são diferentes do que quero remover
 
             setWeekDays(weekDaysWithRemovedOne)
 
         } else {
             const weekDaysWithAddedOne = [...weekDays, weekDay]
-            //...todos que já tinha, e incluir weekday
 
             setWeekDays(weekDaysWithAddedOne)
         }
-
     }
 
     return (
@@ -64,8 +53,7 @@ export function NewHabitForm(){
             type="text" id="title" placeholder="Ex: Exercícios, dormir bem, etc..." autoFocus
             className="p-4 rounded-lf mt-3 bg-zinc-800 text-white placeholder:text-zinc-400 focus:outline-none focus:ring-2 focus:ring-violet-700 focus:ring-offset-2 focus:ring-offset-zinc-900"
             onChange={event => setTitle(event.target.value)}
-            //onChange = sempre que mudar recebe o evento, executa a função (target->input) retorna valor do input
-            value={title} //que será setada como ''
+            value={title}
             />
 
             <label htmlFor=""
@@ -80,7 +68,7 @@ export function NewHabitForm(){
                         <Checkbox.Root
                             key={weekDay}
                             className="flex items-center gap-3 group focus:outline-none"
-                            onCheckedChange={() => { //podemos usar o availableWeekDays que já temos só acrescentar no map o index
+                            onCheckedChange={() => { 
                                 handleToggleWeekDays(index)
                             }}
                         checked={weekDays.includes(index)}

@@ -13,18 +13,16 @@ const availableWeekDays = ['Domingo', 'Segunda-feira', 'Terça-feira', 'Quarta-f
 
 export function New(){
     const [weekDays, setWeekDays] = useState<number[]>([])
-    //definindo a tipagem do vetor numeros -> <number[]>
 
     const [title, setTitle] = useState('')
 
-    function handleToggleWeekDay(weekDayIndex: number){ //saber quais dias selecionados
-        if (weekDays.includes(weekDayIndex)){ //para desmarcar
+    function handleToggleWeekDay(weekDayIndex: number){
+        if (weekDays.includes(weekDayIndex)){
             setWeekDays(prevState => prevState.filter(weekDay => weekDay !== weekDayIndex))
-            //fazer um filtro no estado anterior e retornar tds != weekDayIndex
 
-        } else { //marcar
+        } else {
             setWeekDays(prevState => [...prevState, weekDayIndex])
-            //recuperar o estado anterior e jogar usando spread operator
+
         }
     }
 
@@ -67,7 +65,7 @@ export function New(){
                     className="h-12 pl-4 rounded-lg mt-3 bg-zinc-900 text-white border-2 border-zinc-800 focus:border-green-600"
                     placeholder="Exercícios, dormir bem, etc ..."
                     placeholderTextColor={colors.zinc[400]}
-                    onChangeText={setTitle} //ele já entende q qremos atualizar o title
+                    onChangeText={setTitle}
                     value={title}
                     />
 
@@ -80,9 +78,8 @@ export function New(){
                         <Checkbox
                             key={weekDay}
                             title={weekDay}
-                            checked={weekDays.includes(index)} //ver se está checked
+                            checked={weekDays.includes(index)}
                             onPress={ () => handleToggleWeekDay(index)}
-                            //OnPress para funcionar, no checkbox precisa definir TouchableOpacityProps
                         />
                     ))
                 }
@@ -104,8 +101,6 @@ export function New(){
                 </TouchableOpacity>
 
             </ScrollView>
-
         </View>
-
     )
 }

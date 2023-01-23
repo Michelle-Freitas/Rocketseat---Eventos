@@ -38,15 +38,14 @@ export function Habit(){
 
     const route = useRoute()
     const { date } = route.params as Params
-    console.log(date) //aparece a data passada por parametro
+    console.log(date)
 
-    const parsedDate = dayjs() //data convertida
+    const parsedDate = dayjs()
 
-    //verificar se data passou
     const isDateInPast = parsedDate.endOf('day').isBefore(new Date())
 
-    const dayOfWeek = parsedDate.format('dddd') //extrair dia da semana (extenso)
-    //em pt-br br fizemos a importação no lib
+    const dayOfWeek = parsedDate.format('dddd')
+
     const dayAndMonth = parsedDate.format('DD/MM')
 
     const habitsProgress = dayInfo?.possiblehabits.length
@@ -59,10 +58,7 @@ export function Habit(){
 
             const response = await api.get('/day', { params: { date }})
 
-            //para armazenar os dados recebidos da api criado estado
             setDayInfo(response.data)
-
-            //para armazenar os hábitos completos
             setCompletedHabits(response.data.completedHabits)
 
         } catch (error) {
@@ -78,7 +74,7 @@ export function Habit(){
         try {
             await api.patch(`/habits/${habitId}/toggle`)
 
-            if (completedHabits.includes(habitId)){ //se checked desabilitar
+            if (completedHabits.includes(habitId)){
             setCompletedHabits(prevState => prevState.filter(habit => habit !== habitId))
             } else {
                 setCompletedHabits(prevState => [...prevState, habitId])
@@ -86,9 +82,7 @@ export function Habit(){
         } catch (error) {
             console.log(error)
             Alert.alert('Ops', 'Não foi possivel atualizar o status do hábito')
-
         }
-
     }
 
     useEffect(() => {
@@ -148,9 +142,7 @@ export function Habit(){
                         </Text>
                     )
                 }
-
             </ScrollView>
         </View>
-
     )
 }

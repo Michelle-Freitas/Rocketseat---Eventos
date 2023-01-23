@@ -29,30 +29,26 @@ type SummaryProps = Array <{
 export function Home(){
     const { navigate } = useNavigation()
 
-    const [ loading, setLoading ] = useState(true) //true pq abriu tela ele vai estar buscando dados do backend
+    const [ loading, setLoading ] = useState(true)
     const [ summary, setSummary ] = useState<SummaryProps  |  null>(null)
 
-    async function fecthData() { //pra buscar os dados
-        //vamos usar o try catch para não travar em caso de erro
+    async function fecthData() {
         try {
-            setLoading(true) //a função precisa ser chamada novamente, por ex: se voltarmos do popover então setamos true
+            setLoading(true)
 
-            const response = await api.get('/summary')   //resposta que vai vir da api
+            const response = await api.get('/summary')
             console.log(response.data)
-            setSummary(response.data) //passar para summary os dados da response
+            setSummary(response.data)
 
         } catch (error) {
-            Alert.alert('Ops', 'Não foi possivel carregar o sumário de hábitos') //importando Alert do react-native (titulo msg, msg)
+            Alert.alert('Ops', 'Não foi possivel carregar o sumário de hábitos')
             console.log(error)
         } finally {
-            setLoading(false) //se der algo de errado será desativado
+            setLoading(false)
         }
     }
 
-    useFocusEffect(useCallback(() => { //useFocusEffect para chamar de novo qd o foco voltar pra essa tela home
-        /*quando usa o useFocusEffect documentação recomenda usar tbm useCallback ->
-        melhor performace (pega referencia da função, pra nçao executar de forma desnecessária )
-        */
+    useFocusEffect(useCallback(() => {
         fecthData();
     }, []));
 
@@ -75,7 +71,7 @@ export function Home(){
                         weekDays.map((weekDay, i) => (
                             <Text key={`${weekDay}-${i}`}
                             className="text-zinc-400 text-xl font-bold text-center mx-1"
-                            style={{ width: DAY_SIZE }} //mesmo espaço entre os quadr
+                            style={{ width: DAY_SIZE }}
                             >
                                 {weekDay}
                             </Text>

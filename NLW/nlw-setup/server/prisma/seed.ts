@@ -1,6 +1,6 @@
 import { PrismaClient } from '@prisma/client';
 
-const prisma = new PrismaClient() //conexão com o bd
+const prisma = new PrismaClient() 
 
 const firstHabitId = '0730ffac-d039-4194-9571-01aa2aa0efbd'
 const firstHabitCreationDate = new Date('2022-12-31T03:00:00.000')
@@ -14,9 +14,9 @@ const thirdHabitCreationDate = new Date('2023-01-08T03:00:00.000')
 async function run() {
     await prisma.habit.deleteMany()
     await prisma.day.deleteMany()
-    //para resetar e não ficar duplicando cada vez que rodamos o seed
 
-    /**
+
+    /*
      * Create habits
      */
     await Promise.all([
@@ -25,11 +25,11 @@ async function run() {
                 id: firstHabitId,
                 title: 'Beber 2L água',
                 created_at: firstHabitCreationDate,
-                weekDays: { //criação encadeada, ver vídeo sobre
+                weekDays: {
                     create: [
-                        { week_day: 1 }, //segunda
-                        { week_day: 2 }, //terça
-                        { week_day: 3 }, //quarta
+                        { week_day: 1 },
+                        { week_day: 2 },
+                        { week_day: 3 },
                     ]
                 }
             }
@@ -127,6 +127,3 @@ run()
     process.exit(1)
   })
 
-
-
-//disconnect() -> fazer desconexão do bd para não criar em excesso

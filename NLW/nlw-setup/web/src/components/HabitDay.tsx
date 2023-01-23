@@ -8,14 +8,14 @@ import { HabitsList } from './HabitsList';
 import { ProgressBar } from './ProgressBar';
 
 
-//criando um interface, poderia ser type (Padrão)
 interface HabitProps {
     date: Date
     defaultCompleted?: number
     amount?: number
 }
-//caso não queira usar HabitDay(props: HabitProps) pode ser:
-export function HabitDay({ defaultCompleted = 0, amount = 0 , date }: HabitProps) { //dias clicaveis
+
+
+export function HabitDay({ defaultCompleted = 0, amount = 0 , date }: HabitProps) {
 
     const [completed, setCompleted] = useState(defaultCompleted)
 
@@ -56,9 +56,8 @@ export function HabitDay({ defaultCompleted = 0, amount = 0 , date }: HabitProps
                     <ProgressBar progress={completedPercentage}/>
 
                     <HabitsList date ={date} onCompletedChanged={handleCompletedChanged}/>
-                    {/*passando handleAmountCompletedChanged() como uma propriedade */}
 
-                    <Popover.Arrow height={8} width={16} className="fill-zinc-900"/> {/* Arrow é svg então para cor colocar fill-cor-00 */}
+                    <Popover.Arrow height={8} width={16} className="fill-zinc-900"/> 
                 </Popover.Content>
             </Popover.Portal>
         </Popover.Root>

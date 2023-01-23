@@ -7,12 +7,10 @@ import Animated, { ZoomIn, ZoomOut } from "react-native-reanimated"
 
 interface Props extends TouchableOpacityProps{
     title: string;
-    checked?: boolean; //? quer dizer que pode ser nula
-
+    checked?: boolean;
 }
 
-export function Checkbox( {title, checked = false, ...rest} : Props ){ //rest tds outras
-
+export function Checkbox( {title, checked = false, ...rest} : Props ){ 
     return (
         <TouchableOpacity
             activeOpacity={0.7}
