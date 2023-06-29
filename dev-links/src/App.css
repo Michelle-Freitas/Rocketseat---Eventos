@@ -1,0 +1,62 @@
+/* #root {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
+  border: 2px solid red;
+} */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --bg: url('./assets/bg-mobile.jpg');
+  --avatar-dark: url('./assets/avatar-color-dark.png');
+  --avatar-ligth: url('./assets/avatar-color-light.png');
+  --font-color: #fff;
+
+}
+
+.light {
+  --bg: url('./assets/bg-mobile-light.jpg');
+  --font-color: #000;
+}
+
+.container {
+  width: 100vw;
+  height: 100vh;
+  font-family: Inter, system-ui, Avenir, Helvetica;
+  background: var(--bg) no-repeat center/cover;
+  padding-top: 20px;
+
+}
+
+
+.devlinks {
+  width: 360px;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
+
+  color: var(--font-color)
+}
+
+.link-list {
+  margin-top: 30px;
+}
+
+@media screen and (min-width: 500px) {
+
+  .container {
+    padding-top: 40px;
+  }
+  .light {
+  --bg: url('./assets/bg-desktop-light.jpg');
+  }
+  .dark {
+  --bg: url('./assets/bg-desktop.jpg');
+  }
+
+}

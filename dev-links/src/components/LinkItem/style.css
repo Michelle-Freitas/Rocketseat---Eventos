@@ -1,0 +1,50 @@
+/* LINK ITEM*/
+
+:root {
+    --border-color: rgba(255, 255, 255, 0.2);
+    --link-color: rgba(255, 255, 255, 0.05);
+    --link-color-hover: rgba(0, 0, 0, 0.02);
+    --font-link-color: #fff;
+}
+
+.light {
+    --border-color: rgba(117, 64, 216, 0.233);
+    --link-color: rgba(201, 143, 224, 0.671);
+    --link-color-hover: rgba(201, 162, 233, 0.411);
+    --font-link-color: rgb(117, 64, 216);
+}
+
+li {
+    list-style: none;
+}
+
+.link-item {
+    display: flex;
+    margin: 15px;
+    padding: 10px 0;
+
+    background-color: var(--link-color);
+    border: 1px solid var(--border-color);
+    border-radius: 10px;
+
+
+}
+
+a {
+    text-decoration: none;
+    color: var(--font-link-color);
+
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    justify-content: center;
+}
+
+a:hover {
+    background-color: var(--link-color-hover);
+
+}
+
+img {
+    width: 24px;
+}

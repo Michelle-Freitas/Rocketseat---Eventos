@@ -1,0 +1,21 @@
+/* PROFILE */
+
+.image-border {
+    width: 125px;
+    height: 125px;
+    background-color: #fff;
+    border-radius: 50%;
+    border: 2px solid purple;
+    margin: auto;
+}
+
+.profile-image {
+    width: 119px;
+    height: 119px;
+    border-radius: 50%;
+}
+
+.profile > p {
+    padding: 20px 0;
+    font-weight: 500;
+}

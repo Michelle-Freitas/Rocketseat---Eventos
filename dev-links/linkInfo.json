@@ -1,0 +1,34 @@
+{
+    "links": [
+        {
+            "id": 1,
+            "title":"Portfólio",
+            "img": "./src/assets/icon/portfolio.ico",
+            "url": "https://michelle-freitas.vercel.app/"
+        },
+        {
+            "id": 2,
+            "title":"Super Trunfo PokeApi",
+            "img": "./src/assets/icon/pokebola.svg",
+            "url": "https://github.com/Michelle-Freitas/SupertrunfoPokeApi"
+        },
+        {
+            "id": 3,
+            "title":"GitHub",
+            "img": "./src/assets/icon/github.svg",
+            "url": "https://github.com/Michelle-Freitas"
+        },
+        {
+            "id": 4,
+            "title":"LinkedIn",
+            "img": "./src/assets/icon/linkedIn.svg",
+            "url": "https://www.linkedin.com/in/michelle-afreitas/"
+        },
+        {
+            "id": 5,
+            "title":"Instagram",
+            "img": "./src/assets/icon/instagram.svg",
+            "url": "https://www.instagram.com/miifreeitas/"
+        }
+    ]
+}
