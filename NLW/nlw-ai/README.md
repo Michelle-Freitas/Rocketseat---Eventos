@@ -1,20 +1,12 @@
 <h1 align="center"> NLW AI </h1>
 
 <p align="center">
-Projeto desenvolvido em evento NLW promovido pela Rocketseat para ensino de tecnologias WEB.
+Projeto desenvolvido em evento NLW promovido pela <a href="https://www.rocketseat.com.br/">Rocketseat</a>.
 </p>
 
 <p align="center">
-  <a href="#-tecnologias">Tecnologias</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
-  <a href="#-projeto">Projeto</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
-</p>
-
-
-<br>
-
-<p align="center">
-  <img alt="exemplo da utilização do projeto de transcrição sugerindo 3 titulos" src="./public/example1.jpeg" width="50%">
-  <img alt="exemplo da utilização do projeto de transcrição resumindo o vídeo" src="./public/example2.jpeg" width="50%">
+  <img alt="exemplo da utilização do projeto de transcrição sugerindo 3 titulos" src="./public/example1.jpeg" width="70%">
+  <img alt="exemplo da utilização do projeto de transcrição resumindo o vídeo" src="./public/example2.jpeg" width="70%">
 </p>
 
 ## 🚀 Tecnologias
