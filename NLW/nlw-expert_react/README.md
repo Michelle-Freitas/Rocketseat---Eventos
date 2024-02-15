@@ -9,9 +9,9 @@ Projeto desenvolvido em evento NLW promovido pela <a href="https://www.rocketsea
 Foi desenvolvido uma aplicação de notas onde você pode inserir em formato de texto ou áudio.
 
 <div align="center">
-  <img alt="Página Home" src="./public/screens/home.png">
-  <img alt="criar nota" src="./public/screens/create.png" width="50%">
-  <img alt="nota existente" src="./public/screens/note.png" width="50%">
+  <img alt="Página Home" src="./public/screen/home.png">
+  <img alt="criar nota" src="./public/screen/create.png" width="49.5%">
+  <img alt="nota existente" src="./public/screen/note.png" width="49.5%">
 </div>
 
 
