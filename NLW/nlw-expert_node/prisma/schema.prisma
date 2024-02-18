@@ -6,7 +6,7 @@ generator client {
 }
 
 datasource db {
-  provider = "sqlite" // Essa linha alterada de "postgresql" para "sqlite"
+  provider = "sqlite"
   url      = env("DATABASE_URL")
 }
 
@@ -20,7 +20,6 @@ model Poll {
   votes   Vote[]
 }
 
-// tenho um 1 Poll para N Options (onde tenho N coloco o comando para criar o relacionamento) - opção pertence a poll
 model PollOption {
   id     String @id @default(uuid())
   title  String
@@ -39,5 +38,5 @@ model Vote {
 
   pollOption PollOption @relation(fields: [pollOptionId], references: [id])
   poll       Poll       @relation(fields: [pollId], references: [id])
-  @@unique([sessionId, pollId]) //garantido que a combinação dos dois campos é unica, só 1 voto por user (constraint)
+  @@unique([sessionId, pollId]) 
 }

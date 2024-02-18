@@ -1,4 +1,3 @@
-// dessa forma pois não estamos usando postgress e sim sqlite
 import { Redis } from "ioredis";
 
 if (!process.env.REDIS_URL) {

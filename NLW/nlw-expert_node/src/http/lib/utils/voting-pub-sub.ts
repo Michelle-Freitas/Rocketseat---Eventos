@@ -1,13 +1,10 @@
-type Message = { pollOptionId: string, votes: number } //qual opção e qts votos tem
-type Subscriber = (message: Message) => void; //cada Sub receberá essa msg
+type Message = { pollOptionId: string, votes: number };
+type Subscriber = (message: Message) => void;
 
 class VotingPubSub {
   private channels: Record<string, Subscriber[]> = {}
-  // canais serão objetos<id_enquete, chamar_varias_funções_q_estão_ouvindo>
-  // Subscriber[] cada enquete pode ter varios subs -> []
-
     subscribe(pollId: string, subscriber: Subscriber) {
-        if (!this.channels[pollId]) { // se nenhuma pessoa assinou criar o []
+        if (!this.channels[pollId]) {
             this.channels[pollId] = []
         }
 
@@ -27,4 +24,3 @@ class VotingPubSub {
 
 export const voting = new VotingPubSub()
 
-//publico mensagens, e tenho funções ouvindo essas msgs (publicações)

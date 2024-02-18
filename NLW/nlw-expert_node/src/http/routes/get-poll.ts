@@ -15,10 +15,9 @@ export async function getPoll(app: FastifyInstance) { // http://localhost:3333/p
             where: {
                 id: pollId
             },
-            include: { //inclui dados de relacionamento ao msm tempo de uma entidade especifica
-                //trazer dados da enquete ao msm tempo join e busque dados das opções da enquete
+            include: {
                 options: {
-                    select: { //selecionar campos especificos
+                    select: {
                         id: true,
                         title: true
                     }
@@ -27,26 +26,18 @@ export async function getPoll(app: FastifyInstance) { // http://localhost:3333/p
         })
         if (!poll) return reply.status(400).send({ message: 'Poll not found' })
 
-        const result = await redis.zrange(pollId, 0, -1, 'WITHSCORES') //zrange trás o ranking atraves de uma chave, posição 0 até -1 (TODAS)
-        // se fosse 3 primeiras (key, 0, 3)
-        // ultimo parametro tem varias opções, WITHSCORES para trazer a qt de votos e não só os nomes das opções de votos
+        const result = await redis.zrange(pollId, 0, -1, 'WITHSCORES') //-1 (TODAS)
 
-        console.log(result) //retorna [ id, num, id, num]
-        // converter para um objeto {id: numero_votos}
-        const votes = result.reduce((obj, line, index) => { // obj as Record<string, number>
+        const votes = result.reduce((obj, line, index) => {
             if(index % 2 === 0 ){
                 const score = result[index + 1]
 
                 Object.assign(obj, { [line]: Number(score) })
-                //Object.assign() => mesclar dois objetos
             }
 
             return obj
 
         }, {} as Record<string, number>)
-        // {} vazio no TS colocamos as Record (objeto) <tipo_da_chave, valor_chave >
-
-        console.log(votes) //{'id_opção' : total_votos}
 
         return reply.send({
             poll: {

@@ -18,14 +18,12 @@ export async function voteOnPoll(app: FastifyInstance) { // http://localhost:333
         const { pollOptionId } = voteOnPollBody.parse(request.body)
         const { pollId } = voteOnPollParams.parse(request.params)
 
-        // COOKIES (npm i @fastify/cookie)
-        // VERIFICAR SE JÁ TEM COOKIE DE USER PARA NÃO DUPLICAR O VOTO (JÁ TEM SESSION ID ?)
         let { sessionId } = request.cookies
 
         if (sessionId) {
             const userPreviousVoteOnPoll = await prisma.vote.findUnique({
                 where: {
-                    sessionId_pollId: { //indices da tabela, muito mais performatica, não precisa fazer uma varredura para encontrar
+                    sessionId_pollId: {
                         sessionId,
                         pollId
                     }
@@ -33,14 +31,14 @@ export async function voteOnPoll(app: FastifyInstance) { // http://localhost:333
             })
 
             if (userPreviousVoteOnPoll && userPreviousVoteOnPoll.pollOptionId !== pollOptionId){
-                // Apagar voto anterior e para criar um voto novo lá pra baixo
+
                 await prisma.vote.delete({
                     where: {
                         id: userPreviousVoteOnPoll.id
                     }
                 })
 
-                const votes = await redis.zincrby(pollId, -1, userPreviousVoteOnPoll.pollOptionId) //decrementando em 1 da opção anterior
+                const votes = await redis.zincrby(pollId, -1, userPreviousVoteOnPoll.pollOptionId)
 
                 voting.publish(pollId, {
                     pollOptionId: userPreviousVoteOnPoll.pollOptionId,
@@ -53,15 +51,14 @@ export async function voteOnPoll(app: FastifyInstance) { // http://localhost:333
         }
 
         if (!sessionId) {
-            sessionId = randomUUID() //gerar id unico
+            sessionId = randomUUID()
 
             reply.setCookie('sessionId', sessionId, {
-                path: '/', // quais rotas terão acesso a informação / = todas
-                maxAge: 60 * 60 * 24 * 30, //qt tempo ficará salvo => 30 dias
-                signed: true, //para que o user não possa alterar
-                httpOnly: true, //front não acessa info, apenas o backend
+                path: '/',
+                maxAge: 60 * 60 * 24 * 30, // 30 dias
+                signed: true, //não poder alterar
+                httpOnly: true, //info acessada apenas pelo backend
             })
-            // nome, variavel, {opções no cookie}
         }
 
         await prisma.vote.create({
@@ -72,7 +69,7 @@ export async function voteOnPoll(app: FastifyInstance) { // http://localhost:333
             }
         })
 
-        const votes = await redis.zincrby(pollId, 1, pollOptionId) //incrementando em 1  essa opção dentro dessa enquete
+        const votes = await redis.zincrby(pollId, 1, pollOptionId) 
 
         voting.publish(pollId, {
             pollOptionId,
