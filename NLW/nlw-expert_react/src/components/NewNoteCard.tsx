@@ -4,7 +4,7 @@ import { ChangeEvent, FormEvent, useState } from 'react'
 import { toast } from 'sonner'
 
 interface NewNoteCardProps {
-  onNoteCreate: (content: string) => void // é função recebe e não retorna nada
+  onNoteCreate: (content: string) => void
 }
 
 let speechRecognition: SpeechRecognition | null = null
@@ -19,7 +19,6 @@ export function NewNoteCard({ onNoteCreate }: NewNoteCardProps) {
   }
 
   function handleContentChange(event: ChangeEvent<HTMLTextAreaElement>){
-    //precisa passar um generic <>, pois apenas input e textarea tem value, informando qual o elemento do evento HTMLTextAreaElement
     setContent(event.target.value)
     if(event.target.value === '') setShouldShowOnboarding(true)
   }
@@ -36,9 +35,7 @@ export function NewNoteCard({ onNoteCreate }: NewNoteCardProps) {
   }
 
   function handleStartRecording(){
-    // Verificar se pode usar no navegador a opção de gravar
     const isSpeechRecognitionAPIAvaliable = 'SpeechRecognition' in window || 'webkitSpeechRecognition' in window
-    // dentro do chrome chama webkitSpeechRecognition
 
     if (!isSpeechRecognitionAPIAvaliable) {
       alert('Infelizmente seu navegador não suporta a API de gravação!')
@@ -49,18 +46,16 @@ export function NewNoteCard({ onNoteCreate }: NewNoteCardProps) {
     setShouldShowOnboarding(false)
 
     const SpeechRecognitionAPI = window.SpeechRecognition || window.webkitSpeechRecognition
-    // TypeScript não sabe que essa API existe, então instalar @types/dom-speech-recognition como -D
 
     speechRecognition = new SpeechRecognitionAPI()
 
     speechRecognition.lang = 'pt-BR'
-    speechRecognition.continuous = true //não para de gravar até informar manualmente, se false hr q para de falar ele para de gravar
-    speechRecognition.maxAlternatives = 1 //trazer apenas 1 alternativa para palavra q entender
-    speechRecognition.interimResults = true // trás o resultado eqto está falando msm antes de terminar de falar
+    speechRecognition.continuous = true
+    speechRecognition.maxAlternatives = 1
+    speechRecognition.interimResults = true
 
-    speechRecognition.onresult = (event) => { //será chamada sempre q ouvir algo
-      //para ter todo o conteudo falado concatenar - sendo event.results um Iterator, vamos usar o Array.from() q converte Iterator para array
-      const transcription = Array.from(event.results).reduce((text, result) => { //reduce para cada item executa func, valor inicial da informação q qr montar
+    speechRecognition.onresult = (event) => {
+      const transcription = Array.from(event.results).reduce((text, result) => {
         return text.concat(result[0].transcript)
       }, '')
 
@@ -71,7 +66,7 @@ export function NewNoteCard({ onNoteCreate }: NewNoteCardProps) {
       console.error(event)
     }
 
-    speechRecognition.start() // iniciar a gravação
+    speechRecognition.start()
   }
 
   function handleStopRecording(){
@@ -107,7 +102,6 @@ export function NewNoteCard({ onNoteCreate }: NewNoteCardProps) {
               {shouldShowOnboarding ? (
                 <p className="text-sm leading-6 text-slate-300">
                   Comece <button type='button' onClick={handleStartRecording} className='font-medium text-lime-400 hover:underline'>gravando uma nota</button> em áudio ou se preferir <button type='button' onClick={handleStartEditor} className='font-medium text-lime-400 hover:underline'>utilize apenas texto</button>.
-                  {/* colocar botões como type button para não fazer submit dentro do form */}
                 </p>
                 ) : (
                   <textarea value={content} onChange={handleContentChange} autoFocus className='text-sm leading-6 text-slate-400 bg-transparent resize-none flex-1 outline-none'/>
@@ -126,12 +120,9 @@ export function NewNoteCard({ onNoteCreate }: NewNoteCardProps) {
                 Salvar nota
               </button>
             )}
-
           </form>
-
         </Dialog.Content>
       </Dialog.Portal>
-
     </Dialog.Root>
   )
 }

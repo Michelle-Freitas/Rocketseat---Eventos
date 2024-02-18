@@ -11,7 +11,7 @@ interface Note {
 
 export function App() {
   const [search, setSearch] = useState('')
-  const [notes, setNotes] = useState<Note[]>(() => { //podemos passar uma função dentro
+  const [notes, setNotes] = useState<Note[]>(() => {
     const notesOnStorage = localStorage.getItem('notes')
 
     if (notesOnStorage) {
@@ -23,7 +23,6 @@ export function App() {
 
   function onNoteCreate(content: string){
     const newNote = { id: crypto.randomUUID(), date: new Date(), content }
-    // crypto.randomUUID() irá gerar
     const notesArray = [newNote, ...notes]
     setNotes(notesArray)
 
@@ -55,7 +54,7 @@ export function App() {
       </form>
 
       <div className='h-px bg-slate-700'/>
-      <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 auto-rows-[250px] gap-6'> {/* auto-rows-[250px] = altura padrão para os filhos */}
+      <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 auto-rows-[250px] gap-6'>
         <NewNoteCard onNoteCreate={onNoteCreate}/>
 
         {filteredNotes.map(note => (
