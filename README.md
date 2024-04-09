@@ -2,6 +2,8 @@
  Projetos realizados nos eventos da Rocketseat
 
 ## NLW
+* [NLW Unite - React](https://github.com/Michelle-Freitas/Rocketseat---Eventos/tree/main/NLW/nlw-unite/pass-in-web)
+* [NLW Unite - Node](https://github.com/Michelle-Freitas/Rocketseat---Eventos/tree/main/NLW/nlw-unite/pass-in-node)
 * [NLW Expert - React](https://github.com/Michelle-Freitas/Rocketseat---Eventos/tree/main/NLW/nlw-expert_react)
 * [NLW Expert - Node](https://github.com/Michelle-Freitas/Rocketseat---Eventos/tree/main/NLW/nlw-expert_node)
 * [NLW AI](https://github.com/Michelle-Freitas/Rocketseat---Eventos/tree/main/NLW/nlw-ai)
